@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<configuration>
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>[%level] %msg - %logger %X{RequestURL} %X{ParameterMap} %X{RequestedSessionId} %X{RemoteHost}%n</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="net.uiucapp.apollo">
+		<level value="debug"/>
+	</logger>
+
+	<root>
+		<level value="debug"/>
+		<appender-ref ref="console"/>
+	</root>
+</configuration>
