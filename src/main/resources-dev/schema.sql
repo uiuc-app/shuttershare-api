@@ -32,3 +32,11 @@ CREATE TABLE users (
 	device_type VARCHAR(200) NULL ,
 	udid VARCHAR(200) NULL ,
 	PRIMARY KEY (id));
+
+DROP TABLE IF EXISTS group_members;
+CREATE TABLE group_members (
+	id BIGINT NOT NULL AUTO_INCREMENT ,
+	group_id BIGINT NULL ,
+	user_id BIGINT NULL ,
+	join_at BIGINT NULL ,
+	PRIMARY KEY (id));

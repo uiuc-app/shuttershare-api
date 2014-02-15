@@ -1,5 +1,6 @@
 package com.apollo.shuttershare.web;
 
+import com.apollo.shuttershare.common.UnauthorizedException;
 import com.apollo.shuttershare.core.user.UserService;
 import com.apollo.shuttershare.core.user.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,12 @@ public class CurrentUserArgumentResolver implements HandlerMethodArgumentResolve
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        //TODO TBD
-        return userService.getUser(0l);
+        String apiKey = webRequest.getParameter("api_key");
+        if (apiKey == null) {
+            throw new UnauthorizedException("api_key is not provided on secure api");
+        } else {
+            UserVO currentUser = userService.getUserForApiKey(apiKey);
+            return currentUser;
+        }
     }
 }

@@ -3,6 +3,8 @@ import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  *
  */
@@ -40,4 +42,17 @@ public interface PhotoEntryMapper {
             "where id = #{id}")
     public void delete(PhotoEntryVO object);
 
+    @Transactional(readOnly = true)
+    @Select("SELECT * FROM photo_entrys WHERE" +
+            " user_id = #{userId} and photo_id = #{photoId}")
+    @Results(value = {
+            @Result(property = "id", column = "id"),
+            @Result(property = "photoId", column = "photo_id"),
+            @Result(property = "groupId", column = "group_id"),
+            @Result(property = "userId", column = "user_id"),
+            @Result(property = "createAt", column = "create_at"),
+            @Result(property = "acknowledged", column = "acknowledged")
+    })
+    List<PhotoEntryVO> getListWithUserIdAndPhotoId(@Param("userId") Long userId,
+                                                   @Param("photoId") Long photoId);
 }

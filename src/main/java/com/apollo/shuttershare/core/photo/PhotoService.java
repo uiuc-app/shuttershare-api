@@ -1,5 +1,8 @@
 package com.apollo.shuttershare.core.photo;
 
+import com.apollo.shuttershare.common.UnauthorizedException;
+import com.apollo.shuttershare.core.photoentry.PhotoEntryService;
+import com.apollo.shuttershare.core.photoentry.PhotoEntryVO;
 import lombok.extern.slf4j.Slf4j;
 import com.apollo.shuttershare.common.ShutterShareException;
 import com.apollo.shuttershare.core.user.UserVO;
@@ -20,6 +23,9 @@ public class PhotoService {
     @Autowired
     PhotoMapper photoMapper;
 
+    @Autowired
+    PhotoEntryService photoEntryService;
+
     @Value("${file.basePath}")
     private String basePath;
 
@@ -33,15 +39,14 @@ public class PhotoService {
         }
     }
 
-    public PhotoVO createPhoto(InputStream in, String fileName, Long groupId, Long userId, Long deviceId) {
-        log.debug("Save photo with name {} from InputStream into file system, create PhotoVO and save the information in DB.", fileName);
+    public PhotoVO createPhoto(InputStream in, UserVO user) {
+        log.debug("Saving photo for user {} from InputStream into file system, create PhotoVO and save the information in DB.", user);
         PhotoVO photo = new PhotoVO();
         photo.setCreateAt(System.currentTimeMillis());
-        photo.setUserId(userId);
-        photo.setCreateAt(System.currentTimeMillis());
-
-        saveRealFileToFileSystem(in, "" + photo.getId(), getPermanentFileDirectoryPath(photo));
+        photo.setUserId(user.getId());
         photoMapper.save(photo);
+
+        saveRealFileToFileSystem(in, getPermanentFileName(photo), getPermanentFileDirectoryPath(photo, PhotoQuality.full));
         return photo;
     }
 
@@ -61,18 +66,33 @@ public class PhotoService {
         return file;
     }
 
-    private String getPermanentFileDirectoryPath(PhotoVO photo) {
+    private String getPermanentFileDirectoryPath(PhotoVO photo, PhotoQuality quality) {
         log.debug("Generate directory path for PhotoVO {} with its id.", photo);
 
         StringBuilder builder = new StringBuilder(basePath);
 
         builder.append("/").
+                append(quality.toString()).
+                append("/").
                 append(photo.getId() / 10000);
         return builder.toString();
     }
 
-    public List<PhotoVO> getPhotosForGroup(Long groupId, UserVO user) {
-        //TODO authenticate user with group
-        return null;
+    private String getPermanentFileName(PhotoVO photo) {
+        return "" + photo.getId();
+    }
+
+    public void authenticateUserWithPhoto(UserVO user, PhotoVO photo) {
+        log.debug("Authenticating user {} for photo {}", user, photo);
+        List<PhotoEntryVO> photoEntries = photoEntryService.getPhotoEntriesWithUserAndPhoto(user, photo);
+        if (photoEntries.isEmpty()) {
+            throw new UnauthorizedException("The user has no permission to view the photo");
+        }
+    }
+
+    public File getFileForPhotoWithQuality(PhotoVO photo, PhotoQuality quality) {
+        log.debug("Getting File object for the photo {}, with given quality {}");
+        File file = new File(getPermanentFileDirectoryPath(photo, quality), getPermanentFileName(photo));
+        return file;
     }
 }
