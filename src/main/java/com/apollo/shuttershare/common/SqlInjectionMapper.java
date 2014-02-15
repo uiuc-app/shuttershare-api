@@ -1,4 +1,4 @@
-package net.uiucapp.apollo.common;
+package com.apollo.shuttershare.common;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

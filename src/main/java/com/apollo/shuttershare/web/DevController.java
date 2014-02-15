@@ -1,8 +1,8 @@
-package net.uiucapp.apollo.web;
+package com.apollo.shuttershare.web;
 
-import net.uiucapp.apollo.common.JavaPojoToMyBatisMapperAnnotationsScript;
-import net.uiucapp.apollo.common.SqlInjectionMapper;
 import lombok.extern.slf4j.Slf4j;
+import com.apollo.shuttershare.common.JavaPojoToMyBatisMapperAnnotationsScript;
+import com.apollo.shuttershare.common.SqlInjectionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,15 +20,10 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "/")
 @Slf4j
-public class HomeController {
+public class DevController {
 
 	@Autowired
 	SqlInjectionMapper sqlInjectionMapper;
-
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
-		return "home";
-	}
 
 	@RequestMapping(value = "/dev/sql", method = RequestMethod.GET)
 	public String sqlInterface(Model model) {

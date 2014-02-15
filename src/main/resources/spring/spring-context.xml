@@ -8,8 +8,8 @@
 	<import resource="classpath:/spring/mybatis-context.xml" />
 
 	<!-- Component base -->
-	<context:component-scan base-package="net.uiucapp.apollo"/>
+	<context:component-scan base-package="com.apollo.shuttershare"/>
 
-	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-	</bean>
+    <!-- Properties files Multiple files should be delimited by commas.-->
+    <context:property-placeholder location="classpath:/file.properties" />
 </beans>

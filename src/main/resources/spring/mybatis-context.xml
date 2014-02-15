@@ -19,7 +19,7 @@
 	</bean>
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="net.uiucapp.apollo" />
+		<property name="basePackage" value="com.apollo.shuttershare" />
 		<property name="annotationClass" value="org.springframework.stereotype.Repository" />
 	</bean>
 

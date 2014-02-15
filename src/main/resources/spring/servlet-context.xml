@@ -9,9 +9,12 @@
 	
 	<mvc:resources mapping="/static/**" location="/static/"/>
 
-	<!-- @Controller + Jackson 을 사용 -->
+	<!-- @Controller + Jackson -->
 	<mvc:annotation-driven>
-		<mvc:message-converters>
+        <mvc:argument-resolvers>
+            <bean class="com.apollo.shuttershare.web.CurrentUserArgumentResolver" />
+        </mvc:argument-resolvers>
+        <mvc:message-converters>
 			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
 				<property name="objectMapper" ref="jackson2ObjectMapper" />
 			</bean>

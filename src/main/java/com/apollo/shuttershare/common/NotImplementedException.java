@@ -1,9 +1,9 @@
-package net.uiucapp.apollo.common;
+package com.apollo.shuttershare.common;
 
 /**
  * @author Daniel
  */
-public class NotImplementedException extends ApolloException {
+public class NotImplementedException extends ShutterShareException {
 	public NotImplementedException(Throwable cause) {
 		super(cause);
 	}

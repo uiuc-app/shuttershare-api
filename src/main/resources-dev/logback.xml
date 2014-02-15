@@ -8,7 +8,7 @@
 		</encoder>
 	</appender>
 
-	<logger name="net.uiucapp.apollo">
+	<logger name="com.apollo.shuttershare">
 		<level value="debug"/>
 	</logger>
 

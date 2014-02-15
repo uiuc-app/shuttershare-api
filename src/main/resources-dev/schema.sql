@@ -1,27 +1,34 @@
+DROP TABLE IF EXISTS groups;
+CREATE TABLE groups (
+	id BIGINT NOT NULL AUTO_INCREMENT ,
+	name VARCHAR(45) NULL ,
+	created_at BIGINT NULL ,
+	pass_phrase VARCHAR(45) NULL ,
+	PRIMARY KEY (id));
+
+DROP TABLE IF EXISTS photos;
+CREATE TABLE photos (
+	id BIGINT NOT NULL AUTO_INCREMENT ,
+	user_id BIGINT NULL ,
+	create_at BIGINT NULL ,
+	PRIMARY KEY (id));
+
+DROP TABLE IF EXISTS photo_entrys;
+CREATE TABLE photo_entrys (
+	id BIGINT NOT NULL AUTO_INCREMENT ,
+	photo_id BIGINT NULL ,
+	group_id BIGINT NULL ,
+	user_id BIGINT NULL ,
+	create_at BIGINT NULL ,
+	acknowledged TINYINT NULL ,
+	PRIMARY KEY (id));
+
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
 	id BIGINT NOT NULL AUTO_INCREMENT ,
 	name VARCHAR(45) NULL ,
-	email VARCHAR(45) NULL ,
-	image_url VARCHAR(45) NULL ,
-	provider_id VARCHAR(45) NULL ,
-	provider_user_id VARCHAR(45) NULL ,
+	joint_at BIGINT NULL ,
+	api_key VARCHAR(45) NULL ,
+	device_type VARCHAR(200) NULL ,
+	udid VARCHAR(200) NULL ,
 	PRIMARY KEY (id));
-
-DROP TABLE IF EXISTS groups;
-create table groups (
-  id BIGINT AUTO_INCREMENT,
-  group_id BIGINT,
-  owner_id BIGINT,
-  name VARCHAR(512),
-  created_at BIGINT,
-  primary key (id)
-);
-
-DROP TABLE IF EXISTS group_users;
-CREATE TABLE group_users (
-  id BIGINT AUTO_INCREMENT,
-  group_id BIGINT,
-  user_id BIGINT,
-  primary key (id)
-);

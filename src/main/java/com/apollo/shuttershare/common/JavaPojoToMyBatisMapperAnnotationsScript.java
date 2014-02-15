@@ -1,4 +1,4 @@
-package net.uiucapp.apollo.common;
+package com.apollo.shuttershare.common;
 
 import lombok.Lombok;
 import lombok.extern.slf4j.Slf4j;
