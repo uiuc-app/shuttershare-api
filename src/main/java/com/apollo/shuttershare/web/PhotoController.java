@@ -73,7 +73,7 @@ public class PhotoController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/photos/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = {"/photos/{id}", "/photos/{id}/{dummy}"}, method = RequestMethod.GET)
     public void downloadPhoto(HttpServletResponse response,
                               UserVO user,
                               @PathVariable Long id,

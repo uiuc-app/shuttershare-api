@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <head>
-    <title>Apollo</title>
+    <title>ShutterShare</title>
     <meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="/static/less/common.less"/>
+    <link rel="stylesheet" href="${_contextRoot}/static/less/common.less"/>
 	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-	<script src="/static/js/modernizr.js"></script>
-	<script src="/static/js/foundation.min.js"></script>
-	<script src="/static/js/foundation/foundation.topbar.js"></script>
+	<script src="${_contextRoot}/static/js/modernizr.js"></script>
+	<script src="${_contextRoot}/static/js/foundation.min.js"></script>
+	<script src="${_contextRoot}/static/js/foundation/foundation.topbar.js"></script>
 
-    <link rel="stylesheet" href="/static/css/foundation.css">
-	<link rel="stylesheet" href="/static/css/normalize.css">
+    <link rel="stylesheet" href="${_contextRoot}/static/css/foundation.css">
+	<link rel="stylesheet" href="${_contextRoot}/static/css/normalize.css">
 </head>
 <body>
 
@@ -20,7 +20,7 @@
 	<ul class="title-area">
 		<!-- Title Area -->
 		<li class="name">
-			<h1><a href="/">Apollo</a></h1>
+			<h1><a href="${_contextRoot}/">ShutterShare</a></h1>
 		</li>
 		<!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
 		<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
@@ -29,9 +29,8 @@
 	<section class="top-bar-section" style="left: 0%;">
 		<ul class="right">
 			<li class="divider hide-for-small"></li>
-			<li class=""><a href="/page1">Main item 1</a></li>
-			<li class=""><a href="/page2">Main item 2</a></li>
-			<li class=""><a href="/page3">Main item 3</a></li>
+			<li class=""><a href="${_contextRoot}/">Gallery</a></li>
+			<li class=""><a href="${_contextRoot}/form">Upload a photo</a></li>
 		</ul>
 
 		<#--<!-- Right Nav Section &ndash;&gt;-->

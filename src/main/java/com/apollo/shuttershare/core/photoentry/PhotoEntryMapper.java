@@ -55,4 +55,20 @@ public interface PhotoEntryMapper {
     })
     List<PhotoEntryVO> getListWithUserIdAndPhotoId(@Param("userId") Long userId,
                                                    @Param("photoId") Long photoId);
+
+    @Transactional(readOnly = true)
+    @Select("SELECT * FROM photo_entrys WHERE" +
+            " user_id = #{userId} " +
+            "ORDER BY id DESC " +
+            "LIMIT #{limit}")
+    @Results(value = {
+            @Result(property = "id", column = "id"),
+            @Result(property = "photoId", column = "photo_id"),
+            @Result(property = "groupId", column = "group_id"),
+            @Result(property = "userId", column = "user_id"),
+            @Result(property = "createAt", column = "create_at"),
+            @Result(property = "acknowledged", column = "acknowledged")
+    })
+    List<PhotoEntryVO> getListWithUserIdAndLimit(@Param("userId") Long userId,
+                                                 @Param("limit") int limit);
 }

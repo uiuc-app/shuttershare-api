@@ -37,4 +37,8 @@ public class PhotoEntryService {
         log.debug("Retrieving PhotoEntryVOs with user {}, and photo {}", user, photo);
         return photoEntryMapper.getListWithUserIdAndPhotoId(user.getId(), photo.getId());
     }
+
+    public List<PhotoEntryVO> getPhotoEntriesWithUser(UserVO user, int limit) {
+        return photoEntryMapper.getListWithUserIdAndLimit(user.getId(), limit);
+    }
 }

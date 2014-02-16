@@ -2,16 +2,18 @@
 
 <div class="row">
 	<div class="large-12 medium-12 small-12 columns">
-		<div class="panel">
-			<div class="row">
-				<div class="large-3 medium-3 small-3 columns">
-					<img src="http://placehold.it/60x60&amp;text=[img]">
-				</div>
-				<div class="large-9 medium-9 small-9 columns">
-					<div><strong>Yosub Shin</strong></div>
-				</div>
-			</div>
-		</div>
+        <#if photoEntries??>
+            <#list photoEntries as photoEntry>
+            <div class="panel">
+                <a class="th" href="${_contextRoot}/photos/${photoEntry.photoId}/image.jpg?api_key=${api_key}">
+                    <img src="${_contextRoot}/photos/${photoEntry.photoId}/image.jpg?api_key=${api_key}">
+                </a>
+                <div style="text-align: center; padding-top: 10px;">
+                    <a href="${_contextRoot}/photos/${photoEntry.photoId}/image.jpg?api_key=${api_key}">${_contextRoot}/photos/${photoEntry.photoId}/image.jpg?api_key=${api_key}</a>
+                </div>
+            </div>
+            </#list>
+        </#if>
 	</div>
 </div>
 

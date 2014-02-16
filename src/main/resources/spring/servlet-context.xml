@@ -29,6 +29,7 @@
 			<property name="useCacheControlHeader" value="true" />
 			<property name="useCacheControlNoStore" value="true" />
 		</bean>
+        <bean class="com.apollo.shuttershare.web.support.GlobalInterceptor" />
 	</mvc:interceptors>
 
 	<!-- Freemarker -->
