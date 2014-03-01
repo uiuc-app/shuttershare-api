@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+<html>
 <head>
     <title>ShutterShare</title>
     <meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="${_contextRoot}/static/less/common.less"/>
-	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+	<script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
 	<script src="${_contextRoot}/static/js/modernizr.js"></script>
 	<script src="${_contextRoot}/static/js/foundation.min.js"></script>
 	<script src="${_contextRoot}/static/js/foundation/foundation.topbar.js"></script>

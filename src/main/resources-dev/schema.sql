@@ -11,6 +11,8 @@ CREATE TABLE photos (
 	id BIGINT NOT NULL AUTO_INCREMENT ,
 	user_id BIGINT NULL ,
 	create_at BIGINT NULL ,
+	latitude DOUBLE NULL ,
+	longitude DOUBLE NULL ,
 	PRIMARY KEY (id));
 
 DROP TABLE IF EXISTS photo_entrys;
@@ -29,8 +31,6 @@ CREATE TABLE users (
 	name VARCHAR(45) NULL ,
 	joint_at BIGINT NULL ,
 	api_key VARCHAR(45) NULL ,
-	device_type VARCHAR(200) NULL ,
-	udid VARCHAR(200) NULL ,
 	PRIMARY KEY (id));
 
 DROP TABLE IF EXISTS group_members;
@@ -39,4 +39,11 @@ CREATE TABLE group_members (
 	group_id BIGINT NULL ,
 	user_id BIGINT NULL ,
 	join_at BIGINT NULL ,
+	PRIMARY KEY (id));
+
+DROP TABLE IF EXISTS devices;
+CREATE TABLE devices (
+	id BIGINT NOT NULL AUTO_INCREMENT ,
+	device_type VARCHAR(45) NULL ,
+	udid VARCHAR(45) NULL ,
 	PRIMARY KEY (id));

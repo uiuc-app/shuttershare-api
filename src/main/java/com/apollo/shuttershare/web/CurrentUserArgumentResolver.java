@@ -28,7 +28,7 @@ public class CurrentUserArgumentResolver implements HandlerMethodArgumentResolve
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         String apiKey = webRequest.getParameter("api_key");
         if (apiKey == null) {
-            throw new UnauthorizedException("api_key is not provided on secure api");
+            throw new UnauthorizedException("api_key is not provided on secured api");
         } else {
             UserVO currentUser = userService.getUserForApiKey(apiKey);
             return currentUser;

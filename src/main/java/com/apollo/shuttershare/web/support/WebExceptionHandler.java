@@ -29,14 +29,17 @@ public class WebExceptionHandler extends ResponseEntityExceptionHandler {
 
         String stacktrace = getStackTrace(e);
 
+        int httpStatus;
         if (e instanceof WebException) {
-            response.setStatus(((WebException) e).getStatusCode());
+            httpStatus = ((WebException) e).getStatusCode();
         } else {
-            response.setStatus(500);
+            httpStatus = 500;
         }
+        response.setStatus(httpStatus);
+
         Map<String, Object> map = new LinkedHashMap<>();
-        map.put("status", 500L);
-        map.put("code", 500L);
+        map.put("status", httpStatus);
+        map.put("code", httpStatus);
         map.put("message", e.getMessage());
         map.put("developerMessage", stacktrace);
 

@@ -39,6 +39,15 @@ public class PhotoEntryService {
     }
 
     public List<PhotoEntryVO> getPhotoEntriesWithUser(UserVO user, int limit) {
-        return photoEntryMapper.getListWithUserIdAndLimit(user.getId(), limit);
+        return photoEntryMapper.getListWithUserId(user.getId(), limit);
+    }
+
+    public List<PhotoEntryVO> getPhotoEntriesWithPhotos(List<PhotoVO> photos) {
+        log.debug("Getting list of PhotoEntryVO that have photoIds of photos {}.", photos);
+        StringBuilder photoIds = new StringBuilder("-1");
+        for (PhotoVO photoVO : photos) {
+            photoIds.append(", ").append(photoVO.getId());
+        }
+        return photoEntryMapper.getListWithPhotoIds(photoIds.toString());
     }
 }

@@ -12,6 +12,6 @@ public class PhotoVO {
     private Long id;
     private Long userId;
     private Long createAt;
-
-    //TODO Meta data here??(type, size, location etc)
+    private Double latitude;
+    private Double longitude;
 }

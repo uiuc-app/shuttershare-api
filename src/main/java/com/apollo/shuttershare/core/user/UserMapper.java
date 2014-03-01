@@ -17,14 +17,12 @@ public interface UserMapper {
             @Result(property = "id", column = "id"),
             @Result(property = "name", column = "name"),
             @Result(property = "jointAt", column = "joint_at"),
-            @Result(property = "apiKey", column = "api_key"),
-            @Result(property = "deviceType", column = "device_type"),
-            @Result(property = "udid", column = "udid")
+            @Result(property = "apiKey", column = "api_key")
     })
     public UserVO get(Long id);
 
-    @Insert("INSERT INTO users (name, joint_at, api_key, device_type, udid) " +
-            "VALUES (#{name}, #{jointAt}, #{apiKey}, #{deviceType}, #{udid})")
+    @Insert("INSERT INTO users (name, joint_at, api_key) " +
+            "VALUES (#{name}, #{jointAt}, #{apiKey})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     public void save(UserVO object);
 
@@ -32,9 +30,7 @@ public interface UserMapper {
             "SET " +
             "name = #{name}, " +
             "joint_at = #{jointAt}, " +
-            "api_key = #{apiKey}, " +
-            "device_type = #{deviceType}, " +
-            "udid = #{udid} " +
+            "api_key = #{apiKey} " +
             "where id = #{id}")
     public void update(UserVO object);
 
@@ -48,9 +44,19 @@ public interface UserMapper {
             @Result(property = "id", column = "id"),
             @Result(property = "name", column = "name"),
             @Result(property = "jointAt", column = "joint_at"),
-            @Result(property = "apiKey", column = "api_key"),
-            @Result(property = "deviceType", column = "device_type"),
-            @Result(property = "udid", column = "udid")
+            @Result(property = "apiKey", column = "api_key")
     })
     List<UserVO> getWithApiKey(String apiKey);
+
+    @Transactional(readOnly = true)
+    @Select("SELECT users.* FROM users" +
+            " JOIN group_members ON users.id = group_members.user_id" +
+            " WHERE group_id = #{groupId}")
+    @Results(value = {
+            @Result(property = "id", column = "id"),
+            @Result(property = "name", column = "name"),
+            @Result(property = "jointAt", column = "joint_at"),
+            @Result(property = "apiKey", column = "api_key")
+    })
+    List<UserVO> getListWithGroupId(Long groupId);
 }

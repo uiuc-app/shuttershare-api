@@ -25,28 +25,48 @@ public class CommonInitializer {
 
     @PostConstruct
     public void init() {
-        UserVO user = new UserVO();
-        user.setApiKey("test_api_key");
-        user.setName("Yosub Shin");
-        user.setJointAt(System.currentTimeMillis());
-        user.setDeviceType("Test device OS/Type");
-        user.setUdid("Test udid");
+        UserVO user1 = new UserVO();
+        user1.setApiKey("test_api_key_0");
+        user1.setName("Yosub Shin");
+        user1.setJointAt(System.currentTimeMillis());
+        userService.saveUser(user1);
 
-        userService.saveUser(user);
+        UserVO user2 = new UserVO();
+        user2.setApiKey("test_api_key_1");
+        user2.setName("Joe Benassi");
+        user2.setJointAt(System.currentTimeMillis());
+        userService.saveUser(user2);
 
+        UserVO user3 = new UserVO();
+        user3.setApiKey("test_api_key_2");
+        user3.setName("Zac Swedberg");
+        user3.setJointAt(System.currentTimeMillis());
+        userService.saveUser(user3);
 
         GroupVO group = new GroupVO();
         group.setCreatedAt(System.currentTimeMillis());
-        group.setName("Test group 1");
-        group.setPassPhrase("test-group-passphrase");
+        group.setName("Test group 0");
+        group.setPassPhrase("test_passphrase_0");
         groupService.saveGroup(group);
+        groupService.joinGroup(group, user1);
+        groupService.joinGroup(group, user2);
+        groupService.joinGroup(group, user3);
 
-        groupService.joinGroup(group, user);
+        group = new GroupVO();
+        group.setCreatedAt(System.currentTimeMillis());
+        group.setName("Test group 1");
+        group.setPassPhrase("test_passphrase_1");
+        groupService.saveGroup(group);
+        groupService.joinGroup(group, user1);
+        groupService.joinGroup(group, user2);
+        groupService.joinGroup(group, user3);
 
         group = new GroupVO();
         group.setCreatedAt(System.currentTimeMillis());
         group.setName("Test group 2");
-        group.setPassPhrase("test-group-passphrase");
+        group.setPassPhrase("test_passphrase_2");
         groupService.saveGroup(group);
+        groupService.joinGroup(group, user1);
+        groupService.joinGroup(group, user2);
     }
 }

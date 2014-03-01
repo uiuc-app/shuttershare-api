@@ -10,6 +10,4 @@ public class UserVO {
     private String name;
     private Long jointAt;
 	private String apiKey;
-    private String deviceType;
-    private String udid;
 }

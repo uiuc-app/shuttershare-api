@@ -3,6 +3,8 @@ import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  *
  */
@@ -36,4 +38,26 @@ public interface GroupMapper {
             "where id = #{id}")
     public void delete(GroupVO object);
 
+    @Transactional(readOnly = true)
+    @Select("SELECT groups.* FROM groups" +
+            " JOIN group_members ON groups.id = group_members.group_id" +
+            " WHERE user_id = #{userId}" +
+            " GROUP BY groups.id")
+    @Results(value = {
+            @Result(property = "id", column = "id"),
+            @Result(property = "name", column = "name"),
+            @Result(property = "createdAt", column = "created_at"),
+            @Result(property = "passPhrase", column = "pass_phrase")
+    })
+    List<GroupVO> getListWithUserId(Long userId);
+
+    @Transactional(readOnly = true)
+    @Select("SELECT * FROM groups WHERE pass_phrase = #{passPhrase}")
+    @Results(value = {
+            @Result(property = "id", column = "id"),
+            @Result(property = "name", column = "name"),
+            @Result(property = "createdAt", column = "created_at"),
+            @Result(property = "passPhrase", column = "pass_phrase")
+    })
+    List<GroupVO> getListWithPassPhrase(String passPhrase);
 }

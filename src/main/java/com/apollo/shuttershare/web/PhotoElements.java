@@ -13,23 +13,27 @@ import java.util.List;
 public class PhotoElements {
     public static class JsonPhoto {
         public Long id;
-        public Long userId;
-        public Long createAt;
+        public Long user_id;
+        public Long create_at;
+        public Double latitude;
+        public Double longitude;
+        public Long[] group_ids;
 
-        public JsonPhoto(PhotoVO photo) {
+        public JsonPhoto(PhotoVO photo, Long[] group_ids) {
             this.id = photo.getId();
-            this.userId = photo.getUserId();
-            this.createAt = photo.getUserId();
+            this.user_id = photo.getUserId();
+            this.create_at = photo.getCreateAt();
+            this.latitude = photo.getLatitude();
+            this.longitude = photo.getLongitude();
+            this.group_ids = group_ids;
         }
     }
 
     public static class JsonPhotos {
         public List<JsonPhoto> photos = new ArrayList<>();
 
-        public JsonPhotos(List<PhotoVO> photos) {
-            for (PhotoVO photo : photos) {
-                this.photos.add(new JsonPhoto(photo));
-            }
+        public JsonPhotos(List<JsonPhoto> photos) {
+            this.photos = photos;
         }
     }
 }

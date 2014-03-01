@@ -2,6 +2,7 @@ package com.apollo.shuttershare.core.user;
 
 import com.apollo.shuttershare.common.ShutterShareException;
 import com.apollo.shuttershare.common.UnauthorizedException;
+import com.apollo.shuttershare.core.group.GroupVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,5 +43,10 @@ public class UserService {
         } else {
             throw new UnauthorizedException("Cannot find unique user with given api key");
         }
+    }
+
+    public List<UserVO> getUsersWithGroup(GroupVO group) {
+        log.debug("Getting UserVOs for the group members of the group {}", group);
+        return userMapper.getListWithGroupId(group.getId());
     }
 }

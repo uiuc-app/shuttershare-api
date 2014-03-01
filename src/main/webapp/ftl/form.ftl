@@ -8,15 +8,20 @@
                     <input type="text" name="api_key" value="<#if api_key??>${api_key}</#if>"/>
                 </label>
             </div>
-            <div class="large-12 medium-12 small-12 columns">
-                <label>Group id to share
-                    <input type="text" name="groupIds" value="0" />
-                </label>
+            <div id="group-ids-placeholder">
+                <div class="large-12 medium-12 small-12 columns">
+                    <label>Group id to share
+                        <input type="text" name="groupIds" value="0" />
+                    </label>
+                </div>
             </div>
             <div class="large-12 medium-12 small-12 columns">
                 <label>Choose a photo
                     <input type="file" name="image" />
                 </label>
+            </div>
+            <div class="large-12 medium-12 small-12 columns">
+                <input id="add-group-id-button" type="button" class="button large-12 medium-12 small-12" value="Add a group to share" />
             </div>
             <div class="large-12 medium-12 small-12 columns">
                 <input type="submit" class="button large-12 medium-12 small-12" value="Upload photo" />
@@ -26,3 +31,20 @@
 </div>
 
 <#include "footer.ftl">
+
+<script>
+$(function() {
+   function addGroup() {
+       $('#group-ids-placeholder').append(
+               '<div class="large-12 medium-12 small-12 columns">           \
+                    <label>Group id to share                                \
+                        <input type="text" name="groupIds" value="0" />     \
+                    </label>                                                \
+               </div>');
+   }
+
+   $('#add-group-id-button').click(function() {
+       addGroup();
+   });
+});
+</script>

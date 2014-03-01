@@ -5,7 +5,8 @@
 			<p class="copyright">©2014 ShutterShare. All rights reserved.</p>
 		</div>
 	</div>
-</div><script>
+</div>
+<script>
 	$(document).foundation();
 </script>
 </body>

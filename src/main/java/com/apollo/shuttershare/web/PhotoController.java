@@ -22,6 +22,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Arrays;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/")
@@ -38,41 +39,32 @@ public class PhotoController {
 	SqlInjectionMapper sqlInjectionMapper;
 
     @ResponseBody
-	@RequestMapping(value = "/groups/{groupId}/photos", method = RequestMethod.GET)
-	public String list(Model model,
-                       UserVO user,
-                       @PathVariable Long groupId) {
-        return null;
-	}
-
-    @ResponseBody
     @RequestMapping(value = "/photos", method = RequestMethod.POST)
     public PhotoElements.JsonPhoto uploadPhoto(UserVO user,
-                                               @RequestParam Long[] groupIds,
+                                               @RequestParam Long[] group_ids,
                                                @RequestParam MultipartFile image,
                                                @RequestParam(required = false) Double latitude,
                                                @RequestParam(required = false) Double longitude) {
-        log.debug("Uploading a photo to groups {} for user {}", Arrays.toString(groupIds), user);
+        log.debug("Uploading a photo to groups {} for user {}", Arrays.toString(group_ids), user);
         // Authenticate user to all of the requested groups
-        groupService.authenticateUserToGroups(groupIds, user);
+        groupService.authenticateUserToGroups(group_ids, user);
 
         // Add photo
         PhotoVO photo;
         try {
-            photo = photoService.createPhoto(image.getInputStream(), user);
+            photo = photoService.createPhoto(image.getInputStream(), user, latitude, longitude);
         } catch (IOException e) {
             throw new ShutterShareException("Unable to handle uploaded photo", e);
         }
 
         // For each group, save photo entries to the group
-        for (Long groupId : groupIds) {
+        for (Long groupId : group_ids) {
             groupService.addPhotoToGroup(groupId, photo, user);
         }
 
-        return new PhotoElements.JsonPhoto(photo);
+        return new PhotoElements.JsonPhoto(photo, group_ids);
     }
 
-    @ResponseBody
     @RequestMapping(value = {"/photos/{id}", "/photos/{id}/{dummy}"}, method = RequestMethod.GET)
     public void downloadPhoto(HttpServletResponse response,
                               UserVO user,
@@ -92,5 +84,21 @@ public class PhotoController {
         } catch (IOException e) {
             throw new ShutterShareException("Unable to process file", e);
         }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/groups/{id}/photos", method = RequestMethod.GET)
+    public PhotoElements.JsonPhotos getGroupPhotosList(
+                              UserVO user,
+                              @PathVariable Long id,
+                              @RequestParam(defaultValue = "20") Long limit,
+                              @RequestParam(defaultValue = Long.MAX_VALUE + "") Long before,
+                              @RequestParam(defaultValue = "-1") Long after) {
+        log.debug("Get the list of photos in group with id {}", id);
+
+        groupService.authenticateUserToGroups(new Long[]{id}, user);
+
+        List<PhotoElements.JsonPhoto> result = photoService.getGroupJsonPhotosList(id, limit, before, after);
+        return new PhotoElements.JsonPhotos(result);
     }
 }
