@@ -3,6 +3,7 @@ package com.apollo.shuttershare.web;
 import com.apollo.shuttershare.common.UnauthorizedException;
 import com.apollo.shuttershare.core.user.UserService;
 import com.apollo.shuttershare.core.user.UserVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -15,6 +16,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
  * Date: 2/10/14
  * Time: 3:02 PM
  */
+@Slf4j
 public class CurrentUserArgumentResolver implements HandlerMethodArgumentResolver {
     @Autowired
     UserService userService;

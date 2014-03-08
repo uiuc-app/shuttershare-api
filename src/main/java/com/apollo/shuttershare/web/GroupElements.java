@@ -16,11 +16,13 @@ public class GroupElements {
     public static class JsonGroup {
         public Long id;
         public String name;
+        public String pass_phrase;
         public List<JsonGroupMember> members;
 
         public JsonGroup(GroupVO group, List<UserVO> members) {
             this.id = group.getId();
             this.name = group.getName();
+            this.pass_phrase = group.getPassPhrase();
             this.members = new ArrayList<>();
             for (UserVO user : members) {
                 this.members.add(new JsonGroupMember(user));
