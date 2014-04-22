@@ -17,6 +17,7 @@ public class PhotoElements {
         public Long create_at;
         public Double latitude;
         public Double longitude;
+	    public Long city_id;
         public Long[] group_ids;
 
         public JsonPhoto(PhotoVO photo, Long[] group_ids) {
@@ -26,6 +27,7 @@ public class PhotoElements {
             this.latitude = photo.getLatitude();
             this.longitude = photo.getLongitude();
             this.group_ids = group_ids;
+	        this.city_id = photo.getCityId();
         }
     }
 

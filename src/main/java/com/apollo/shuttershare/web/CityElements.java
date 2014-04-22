@@ -16,9 +16,9 @@ public class CityElements {
 			this.latitude = city.getLatitude();
 			this.longitude = city.getLongitude();
 			this.county = city.getCounty();
-			this.stateAbbreviation = city.getStateAbbreviation();
+			this.state_abbreviation = city.getStateAbbreviation();
 			this.state = city.getState();
-			this.backgroundPhotoId = photoId;
+			this.background_photo_id = photoId;
 		}
 
 		public Long id;
@@ -26,9 +26,9 @@ public class CityElements {
 		public Double latitude;
 		public Double longitude;
 		public String county;
-		public String stateAbbreviation;
+		public String state_abbreviation;
 		public String state;
-		public Long backgroundPhotoId;
+		public Long background_photo_id;
 	}
 
 	public static class JsonCities {
