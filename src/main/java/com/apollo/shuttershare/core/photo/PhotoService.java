@@ -11,8 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.*;
+import java.util.List;
 
 /**
  * @author Daniel
@@ -29,6 +34,8 @@ public class PhotoService {
 
     @Value("${file.basePath}")
     private String basePath;
+
+    private static final Integer THUMBNAIL_WIDTH = 360;
 
     public PhotoVO getPhoto(long id) {
         log.debug("Loading PhotoVO with id {}.", id);
@@ -49,22 +56,33 @@ public class PhotoService {
         photo.setLongitude(longitude);
         photoMapper.save(photo);
 
-        saveRealFileToFileSystem(in, getPermanentFileName(photo), getPermanentFileDirectoryPath(photo, PhotoQuality.full));
+        try {
+            BufferedImage img = ImageIO.read(in);
+            createAndSaveThumbnailPhoto(img, getPermanentFileName(photo), getPermanentFileDirectoryPath(photo, PhotoQuality.thumbnail));
+            saveRealFileToFileSystem(img, getPermanentFileName(photo), getPermanentFileDirectoryPath(photo, PhotoQuality.full));
+        } catch (IOException e) {
+            throw new ShutterShareException("Unable to read image file", e);
+        }
         return photo;
     }
 
-    private File saveRealFileToFileSystem(InputStream in, String fileName, String directoryPath) {
+    public void createAndSaveThumbnailPhoto(BufferedImage srcImg, String fileName, String directoryPath) {
+        log.debug("Creating thumbnail image and save the file {} in the directory {}", fileName, directoryPath);
+
+	    int scaledHeight = (int) (srcImg.getHeight() * ((double) THUMBNAIL_WIDTH / srcImg.getWidth()));
+			    BufferedImage img = new BufferedImage(THUMBNAIL_WIDTH, scaledHeight, BufferedImage.TYPE_INT_RGB);
+        img.createGraphics().drawImage(srcImg.getScaledInstance(THUMBNAIL_WIDTH, scaledHeight, Image.SCALE_SMOOTH), 0, 0, null);
+        saveRealFileToFileSystem(img, fileName, directoryPath);
+    }
+
+    private File saveRealFileToFileSystem(BufferedImage img, String fileName, String directoryPath) {
         log.debug("Saving a file into directory {} with file name {}", directoryPath, fileName);
         File file = new File(directoryPath, fileName);
         file.getParentFile().mkdirs();
-        try (FileOutputStream fos = new FileOutputStream(file)) {
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = in.read(buffer)) != -1) {
-                fos.write(buffer, 0, bytesRead);
-            }
+        try {
+            ImageIO.write(img, "jpg", file);
         } catch (IOException e) {
-            throw new ShutterShareException("Failed to save photo.", e);
+            throw new ShutterShareException("Failed to save photo into file system.", e);
         }
         return file;
     }

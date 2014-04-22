@@ -47,3 +47,14 @@ CREATE TABLE devices (
 	device_type VARCHAR(45) NULL ,
 	udid VARCHAR(45) NULL ,
 	PRIMARY KEY (id));
+
+DROP TABLE IF EXISTS citys;
+CREATE TABLE citys (
+	id BIGINT NOT NULL AUTO_INCREMENT ,
+	name VARCHAR(45) NULL ,
+	latitude DOUBLE NULL ,
+	longitude DOUBLE NULL ,
+	county VARCHAR(45) NULL ,
+	state_abbreviation VARCHAR(2) NULL ,
+	state VARCHAR(45) NULL ,
+	PRIMARY KEY (id));

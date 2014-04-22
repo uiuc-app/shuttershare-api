@@ -26,6 +26,7 @@
 					<list>
 						<value>classpath:/schema.sql</value>
 						<value>classpath:/data.sql</value>
+                        <value>classpath:/cities/IL.sql</value>
 					</list>
 				</property>
 			</bean>
