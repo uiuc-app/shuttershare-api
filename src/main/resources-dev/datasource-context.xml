@@ -26,7 +26,56 @@
 					<list>
 						<value>classpath:/schema.sql</value>
 						<value>classpath:/data.sql</value>
+                        <value>classpath:/cities/AK.sql</value>
+                        <value>classpath:/cities/AR.sql</value>
+                        <value>classpath:/cities/CA.sql</value>
+                        <value>classpath:/cities/CT.sql</value>
+                        <value>classpath:/cities/FL.sql</value>
+                        <value>classpath:/cities/HI.sql</value>
+                        <value>classpath:/cities/ID.sql</value>
+                        <value>classpath:/cities/IN.sql</value>
+                        <value>classpath:/cities/KY.sql</value>
+                        <value>classpath:/cities/MA.sql</value>
+                        <value>classpath:/cities/ME.sql</value>
+                        <value>classpath:/cities/MN.sql</value>
+                        <value>classpath:/cities/MS.sql</value>
+                        <value>classpath:/cities/NC.sql</value>
+                        <value>classpath:/cities/NE.sql</value>
+                        <value>classpath:/cities/NJ.sql</value>
+                        <value>classpath:/cities/NV.sql</value>
+                        <value>classpath:/cities/OH.sql</value>
+                        <value>classpath:/cities/OR.sql</value>
+                        <value>classpath:/cities/RI.sql</value>
+                        <value>classpath:/cities/SD.sql</value>
+                        <value>classpath:/cities/TX.sql</value>
+                        <value>classpath:/cities/VA.sql</value>
+                        <value>classpath:/cities/WA.sql</value>
+                        <value>classpath:/cities/WV.sql</value>
+                        <value>classpath:/cities/AL.sql</value>
+                        <value>classpath:/cities/AZ.sql</value>
+                        <value>classpath:/cities/CO.sql</value>
+                        <value>classpath:/cities/DE.sql</value>
+                        <value>classpath:/cities/GA.sql</value>
+                        <value>classpath:/cities/IA.sql</value>
                         <value>classpath:/cities/IL.sql</value>
+                        <value>classpath:/cities/KS.sql</value>
+                        <value>classpath:/cities/LA.sql</value>
+                        <value>classpath:/cities/MD.sql</value>
+                        <value>classpath:/cities/MI.sql</value>
+                        <value>classpath:/cities/MO.sql</value>
+                        <value>classpath:/cities/MT.sql</value>
+                        <value>classpath:/cities/ND.sql</value>
+                        <value>classpath:/cities/NH.sql</value>
+                        <value>classpath:/cities/NM.sql</value>
+                        <value>classpath:/cities/NY.sql</value>
+                        <value>classpath:/cities/OK.sql</value>
+                        <value>classpath:/cities/PA.sql</value>
+                        <value>classpath:/cities/SC.sql</value>
+                        <value>classpath:/cities/TN.sql</value>
+                        <value>classpath:/cities/UT.sql</value>
+                        <value>classpath:/cities/VT.sql</value>
+                        <value>classpath:/cities/WI.sql</value>
+                        <value>classpath:/cities/WY.sql</value>
 					</list>
 				</property>
 			</bean>

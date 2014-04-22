@@ -1,0 +1,13 @@
+INSERT INTO citys (name, latitude, longitude, county, state_abbreviation, state) VALUES ('Boulder City', 35.97, -114.83, 'Clark', 'NV', 'Nevada');
+INSERT INTO citys (name, latitude, longitude, county, state_abbreviation, state) VALUES ('Carlin', 40.71, -116.1, 'Elko', 'NV', 'Nevada');
+INSERT INTO citys (name, latitude, longitude, county, state_abbreviation, state) VALUES ('Carson City', 39.16, -119.76, 'Carson City', 'NV', 'Nevada');
+INSERT INTO citys (name, latitude, longitude, county, state_abbreviation, state) VALUES ('Elko', 40.83, -115.76, 'Elko', 'NV', 'Nevada');
+INSERT INTO citys (name, latitude, longitude, county, state_abbreviation, state) VALUES ('Fallon', 39.47, -118.77, 'Churchill', 'NV', 'Nevada');
+INSERT INTO citys (name, latitude, longitude, county, state_abbreviation, state) VALUES ('Henderson', 36.03, -114.98, 'Clark', 'NV', 'Nevada');
+INSERT INTO citys (name, latitude, longitude, county, state_abbreviation, state) VALUES ('Las Vegas', 36.17, -115.13, 'Clark', 'NV', 'Nevada');
+INSERT INTO citys (name, latitude, longitude, county, state_abbreviation, state) VALUES ('Mesquite', 36.8, -114.06, 'Clark', 'NV', 'Nevada');
+INSERT INTO citys (name, latitude, longitude, county, state_abbreviation, state) VALUES ('North Las Vegas', 36.19, -115.11, 'Clark', 'NV', 'Nevada');
+INSERT INTO citys (name, latitude, longitude, county, state_abbreviation, state) VALUES ('Reno', 39.52, -119.81, 'Washoe', 'NV', 'Nevada');
+INSERT INTO citys (name, latitude, longitude, county, state_abbreviation, state) VALUES ('Sparks', 39.53, -119.75, 'Washoe', 'NV', 'Nevada');
+INSERT INTO citys (name, latitude, longitude, county, state_abbreviation, state) VALUES ('West Wendover', 40.73, -114.07, 'Elko', 'NV', 'Nevada');
+INSERT INTO citys (name, latitude, longitude, county, state_abbreviation, state) VALUES ('Yerington', 38.98, -119.16, 'Lyon', 'NV', 'Nevada');

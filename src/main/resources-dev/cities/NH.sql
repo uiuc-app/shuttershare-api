@@ -1,0 +1,12 @@
+INSERT INTO citys (name, latitude, longitude, county, state_abbreviation, state) VALUES ('Nashua', 42.76, -71.46, 'Hillsborough', 'NH', 'New Hampshire');
+INSERT INTO citys (name, latitude, longitude, county, state_abbreviation, state) VALUES ('Portsmouth', 43.07, -70.76, 'Rockingham', 'NH', 'New Hampshire');
+INSERT INTO citys (name, latitude, longitude, county, state_abbreviation, state) VALUES ('Rochester', 43.3, -70.97, 'Strafford', 'NH', 'New Hampshire');
+INSERT INTO citys (name, latitude, longitude, county, state_abbreviation, state) VALUES ('Somersworth', 43.26, -70.86, 'Strafford', 'NH', 'New Hampshire');
+INSERT INTO citys (name, latitude, longitude, county, state_abbreviation, state) VALUES ('Berlin', 44.46, -71.18, 'Coos', 'NH', 'New Hampshire');
+INSERT INTO citys (name, latitude, longitude, county, state_abbreviation, state) VALUES ('Claremont', 43.37, -72.34, 'Sullivan', 'NH', 'New Hampshire');
+INSERT INTO citys (name, latitude, longitude, county, state_abbreviation, state) VALUES ('Concord', 43.2, -71.53, 'Merrimack', 'NH', 'New Hampshire');
+INSERT INTO citys (name, latitude, longitude, county, state_abbreviation, state) VALUES ('Dover', 43.19, -70.87, 'Strafford', 'NH', 'New Hampshire');
+INSERT INTO citys (name, latitude, longitude, county, state_abbreviation, state) VALUES ('Keene', 42.93, -72.27, 'Cheshire', 'NH', 'New Hampshire');
+INSERT INTO citys (name, latitude, longitude, county, state_abbreviation, state) VALUES ('Laconia', 43.52, -71.47, 'Belknap', 'NH', 'New Hampshire');
+INSERT INTO citys (name, latitude, longitude, county, state_abbreviation, state) VALUES ('Lebanon', 43.64, -72.25, 'Grafton', 'NH', 'New Hampshire');
+INSERT INTO citys (name, latitude, longitude, county, state_abbreviation, state) VALUES ('Manchester', 42.99, -71.45, 'Hillsborough', 'NH', 'New Hampshire');

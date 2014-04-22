@@ -3,41 +3,41 @@ var fs = require('fs');
 var util = require('util');
 
 var 
-//states = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'],
-states = ['IL'],
+states = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'];
+var
 url = 'http://api.sba.gov/geodata/city_links_for_state_of/{state}.json';
 host = 'api.sba.gov';
 path = '/geodata/city_links_for_state_of/{state}.json';
 
 for (var i in states) {
-    var options = {
-        host: host,
-        path: path.replace(/\{state\}/, states[i]),
-        port: 80,
-        method: 'GET'
-    };
-    console.log(options);
-    var req = http.request(options, function(res) {
-        console.log('STATUS: ' + res.statusCode);
-        //console.log('HEADERS: ' + JSON.stringify(res.headers));
-        res.setEncoding('utf8');
-        var data = "";
-        res.on('data', function (chunk) {
-            data += chunk;
+    (function(j) {
+        var options = {
+            host: host,
+            path: path.replace(/\{state\}/, states[i]),
+            port: 80,
+            method: 'GET'
+        };
+        console.log(options);
+        var req = http.request(options, function(res) {
+            console.log('STATUS: ' + res.statusCode);
+            //console.log('HEADERS: ' + JSON.stringify(res.headers));
+            res.setEncoding('utf8');
+            var data = "";
+            res.on('data', function (chunk) {
+                data += chunk;
+            });
+            res.on('end', function() {
+                var cities = JSON.parse(data);
+                writeSqlQueryToFile(states[j], cities);
+            });
         });
-        res.on('end', function() {
-            var cities = JSON.parse(data);
-            (function(e) {
-                writeSqlQueryToFile(states[e], cities);
-            })(i);
+
+        req.on('error', function(e) {
+            console.log('problem with request: ' + e.message);
         });
-    });
 
-    req.on('error', function(e) {
-        console.log('problem with request: ' + e.message);
-    });
-
-    req.end();
+        req.end();
+    })(i);
 };
 
 function writeSqlQueryToFile(state, cities) {
