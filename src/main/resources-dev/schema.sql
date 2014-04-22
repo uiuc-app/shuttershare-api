@@ -13,6 +13,7 @@ CREATE TABLE photos (
 	create_at BIGINT NULL ,
 	latitude DOUBLE NULL ,
 	longitude DOUBLE NULL ,
+	city_id BIGINT NULL ,
 	PRIMARY KEY (id));
 
 DROP TABLE IF EXISTS photo_entrys;

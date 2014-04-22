@@ -14,4 +14,5 @@ public class PhotoVO {
     private Long createAt;
     private Double latitude;
     private Double longitude;
+	private Long cityId;
 }

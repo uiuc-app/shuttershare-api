@@ -53,9 +53,11 @@ public class HomeController {
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public String upload(Model model,
                          @RequestParam Long[] groupIds,
-                         @RequestParam MultipartFile image) {
+                         @RequestParam MultipartFile image,
+                         @RequestParam(required = false) Double latitude,
+                         @RequestParam(required = false) Double longitude) {
         UserVO user = userService.getUser(0l);
-        photoController.uploadPhoto(user, groupIds, image, null, null);
+        photoController.uploadPhoto(user, groupIds, image, latitude, longitude);
         return "redirect:/";
     }
 

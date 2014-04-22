@@ -8,6 +8,16 @@
                     <input type="text" name="api_key" value="<#if api_key??>${api_key}</#if>"/>
                 </label>
             </div>
+            <div class="large-12 medium-12 small-12 columns">
+                <label>latitude
+                    <input type="text" name="latitude" value="40.11"/>
+                </label>
+            </div>
+            <div class="large-12 medium-12 small-12 columns">
+                <label>longitude
+                    <input type="text" name="longitude" value="-88.24"/>
+                </label>
+            </div>
             <div id="group-ids-placeholder">
                 <div class="large-12 medium-12 small-12 columns">
                     <label>Group id to share

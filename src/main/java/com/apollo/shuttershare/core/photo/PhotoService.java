@@ -1,6 +1,8 @@
 package com.apollo.shuttershare.core.photo;
 
 import com.apollo.shuttershare.common.UnauthorizedException;
+import com.apollo.shuttershare.core.city.CityService;
+import com.apollo.shuttershare.core.city.CityVO;
 import com.apollo.shuttershare.core.photoentry.PhotoEntryService;
 import com.apollo.shuttershare.core.photoentry.PhotoEntryVO;
 import com.apollo.shuttershare.web.PhotoElements;
@@ -32,6 +34,9 @@ public class PhotoService {
     @Autowired
     PhotoEntryService photoEntryService;
 
+	@Autowired
+	CityService cityService;
+
     @Value("${file.basePath}")
     private String basePath;
 
@@ -54,6 +59,14 @@ public class PhotoService {
         photo.setUserId(user.getId());
         photo.setLatitude(latitude);
         photo.setLongitude(longitude);
+	    if (latitude != null && longitude != null) {
+		    CityVO city = cityService.getClosestCityFromCoordinate(latitude, longitude);
+		    if (city != null) {
+			    photo.setCityId(city.getId());
+		    } else {
+			    log.warn("Closest city does not exist");
+		    }
+	    }
         photoMapper.save(photo);
 
         try {
@@ -138,4 +151,26 @@ public class PhotoService {
         }
         return result;
     }
+
+	public List<PhotoElements.JsonPhoto> getCityJsonPhotosList(Long cityId, int limit, Long before, Long after) {
+		log.debug("Getting city {}'s photos list in JsonPhoto with limit {}, before {}, after {}", cityId, limit, before, after);
+		List<PhotoVO> photos = photoMapper.getListWithCityId(cityId, limit, before, after);
+		List<PhotoEntryVO> photoEntries = photoEntryService.getPhotoEntriesWithPhotos(photos);
+
+		Map<Long, Set<Long>> photoToGroupIdsMap = new LinkedHashMap<>();
+		for (PhotoEntryVO photoEntry : photoEntries) {
+			if (photoToGroupIdsMap.containsKey(photoEntry.getPhotoId())) {
+				photoToGroupIdsMap.get(photoEntry.getPhotoId()).add(photoEntry.getGroupId());
+			} else {
+				photoToGroupIdsMap.put(photoEntry.getPhotoId(), new HashSet<Long>());
+				photoToGroupIdsMap.get(photoEntry.getPhotoId()).add(photoEntry.getGroupId());
+			}
+		}
+
+		List<PhotoElements.JsonPhoto> result = new ArrayList<>();
+		for (PhotoVO photo : photos) {
+			result.add(new PhotoElements.JsonPhoto(photo, (photoToGroupIdsMap.get(photo.getId()).toArray(new Long[1]))));
+		}
+		return result;
+	}
 }
