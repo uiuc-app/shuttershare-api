@@ -7,9 +7,9 @@
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" lazy-init="false">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-		<property name="url" value="jdbc:mysql://mydb/apollo?characterEncoding=UTF-8&amp;autoReconnect=true"/>
-		<property name="username" value="apollo"/>
-		<property name="password" value="passwd"/>
+		<property name="url" value="jdbc:mysql://${SHUTTERSHARE_DB_URL}/apollo?characterEncoding=UTF-8&amp;autoReconnect=true"/>
+		<property name="username" value="${SHUTTERSHARE_DB_USER}"/>
+		<property name="password" value="${SHUTTERSHARE_DB_PW}"/>
 		<property name="initialSize" value="5"/>
 		<property name="maxActive" value="10" />
 		<property name="maxIdle" value="10" />

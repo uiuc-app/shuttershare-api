@@ -91,7 +91,7 @@ public class PhotoController {
     public PhotoElements.JsonPhotos getGroupPhotosList(
                               UserVO user,
                               @PathVariable Long id,
-                              @RequestParam(defaultValue = "20") Long limit,
+                              @RequestParam(defaultValue = "20") Integer limit,
                               @RequestParam(defaultValue = Long.MAX_VALUE + "") Long before,
                               @RequestParam(defaultValue = "-1") Long after) {
         log.debug("Get the list of photos in group with id {}", id);
@@ -101,4 +101,17 @@ public class PhotoController {
         List<PhotoElements.JsonPhoto> result = photoService.getGroupJsonPhotosList(id, limit, before, after);
         return new PhotoElements.JsonPhotos(result);
     }
+
+	@ResponseBody
+	@RequestMapping(value = "/photos", method = RequestMethod.GET)
+	public PhotoElements.JsonPhotos getLatestPhotosList(
+			UserVO user,
+			@RequestParam(defaultValue = "20") Integer limit,
+			@RequestParam(defaultValue = Long.MAX_VALUE + "") Long before,
+			@RequestParam(defaultValue = "-1") Long after) {
+		log.debug("Getting the list of latest photos for user {}", user);
+
+		List<PhotoElements.JsonPhoto> result = photoService.getLatestJsonPhotosListForUser(user, limit, before, after);
+		return new PhotoElements.JsonPhotos(result);
+	}
 }

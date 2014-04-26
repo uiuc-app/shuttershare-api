@@ -21,7 +21,7 @@
             <div id="group-ids-placeholder">
                 <div class="large-12 medium-12 small-12 columns">
                     <label>Group id to share
-                        <input type="text" name="groupIds" value="0" />
+                        <input type="text" name="groupIds" value="1" />
                     </label>
                 </div>
             </div>
@@ -48,7 +48,7 @@ $(function() {
        $('#group-ids-placeholder').append(
                '<div class="large-12 medium-12 small-12 columns">           \
                     <label>Group id to share                                \
-                        <input type="text" name="groupIds" value="0" />     \
+                        <input type="text" name="groupIds" value="1" />     \
                     </label>                                                \
                </div>');
    }

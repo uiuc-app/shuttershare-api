@@ -11,5 +11,5 @@
 	<context:component-scan base-package="com.apollo.shuttershare"/>
 
     <!-- Properties files Multiple files should be delimited by commas.-->
-    <context:property-placeholder location="classpath:/file.properties" />
+    <context:property-placeholder location="classpath:/file.properties, classpath:/profileinfo.properties" />
 </beans>

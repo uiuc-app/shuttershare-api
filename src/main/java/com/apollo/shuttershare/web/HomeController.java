@@ -33,19 +33,21 @@ public class HomeController {
     @Autowired
     PhotoController photoController;
 
+	private static final Long userId = 1l;
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
-        UserVO user = userService.getUser(0l);
-        List<PhotoEntryVO> photoEntries = photoEntryService.getPhotoEntriesWithUser(user, 10);
+        UserVO user = userService.getUser(userId);
+		List<PhotoElements.JsonPhoto> photos = photoService.getLatestJsonPhotosListForUser(user, 20, Long.MAX_VALUE, -1l);
 
-        model.addAttribute("photoEntries", photoEntries);
+        model.addAttribute("photos", photos);
         model.addAttribute("api_key", user.getApiKey());
 		return "home";
 	}
 
     @RequestMapping(value = "/form", method = RequestMethod.GET)
     public String form(Model model) {
-        UserVO user = userService.getUser(0l);
+        UserVO user = userService.getUser(userId);
         model.addAttribute("api_key", user.getApiKey());
         return "form";
     }
@@ -56,7 +58,7 @@ public class HomeController {
                          @RequestParam MultipartFile image,
                          @RequestParam(required = false) Double latitude,
                          @RequestParam(required = false) Double longitude) {
-        UserVO user = userService.getUser(0l);
+        UserVO user = userService.getUser(userId);
         photoController.uploadPhoto(user, groupIds, image, latitude, longitude);
         return "redirect:/";
     }

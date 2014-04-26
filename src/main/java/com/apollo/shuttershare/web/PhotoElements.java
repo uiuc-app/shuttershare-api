@@ -1,6 +1,7 @@
 package com.apollo.shuttershare.web;
 
 import com.apollo.shuttershare.core.photo.PhotoVO;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  * Time: 4:46 PM
  */
 public class PhotoElements {
+	@Data
     public static class JsonPhoto {
         public Long id;
         public Long user_id;

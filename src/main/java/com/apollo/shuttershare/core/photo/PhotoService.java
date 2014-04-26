@@ -130,53 +130,27 @@ public class PhotoService {
         return file;
     }
 
-    public List<PhotoElements.JsonPhoto> getGroupJsonPhotosList(Long groupId, Long limit, Long before, Long after) {
+    public List<PhotoElements.JsonPhoto> getGroupJsonPhotosList(Long groupId, int limit, Long before, Long after) {
         log.debug("Getting group {}'s photos list in JsonPhoto with limit {}, before {}, after {}", limit, before, after);
-        List<PhotoVO> photos = photoMapper.getListWithGroupId(groupId, limit, before, after);
-        List<PhotoEntryVO> photoEntries = photoEntryService.getPhotoEntriesWithPhotos(photos);
-
-        Map<Long, Set<Long>> photoToGroupIdsMap = new LinkedHashMap<>();
-        for (PhotoEntryVO photoEntry : photoEntries) {
-            if (photoToGroupIdsMap.containsKey(photoEntry.getPhotoId())) {
-                photoToGroupIdsMap.get(photoEntry.getPhotoId()).add(photoEntry.getGroupId());
-            } else {
-                photoToGroupIdsMap.put(photoEntry.getPhotoId(), new HashSet<Long>());
-                photoToGroupIdsMap.get(photoEntry.getPhotoId()).add(photoEntry.getGroupId());
-            }
-        }
-
-        List<PhotoElements.JsonPhoto> result = new ArrayList<>();
-        for (PhotoVO photo : photos) {
-            result.add(new PhotoElements.JsonPhoto(photo, (photoToGroupIdsMap.get(photo.getId()).toArray(new Long[1]))));
-        }
-        return result;
+        return buildJsonPhotosWithPhotos(photoMapper.getListWithGroupId(groupId, limit, before, after));
     }
 
 	public List<PhotoElements.JsonPhoto> getCityJsonPhotosList(Long cityId, int limit, Long before, Long after) {
 		log.debug("Getting city {}'s photos list in JsonPhoto with limit {}, before {}, after {}", cityId, limit, before, after);
-		List<PhotoVO> photos = photoMapper.getListWithCityId(cityId, limit, before, after);
-		List<PhotoEntryVO> photoEntries = photoEntryService.getPhotoEntriesWithPhotos(photos);
-
-		Map<Long, Set<Long>> photoToGroupIdsMap = new LinkedHashMap<>();
-		for (PhotoEntryVO photoEntry : photoEntries) {
-			if (photoToGroupIdsMap.containsKey(photoEntry.getPhotoId())) {
-				photoToGroupIdsMap.get(photoEntry.getPhotoId()).add(photoEntry.getGroupId());
-			} else {
-				photoToGroupIdsMap.put(photoEntry.getPhotoId(), new HashSet<Long>());
-				photoToGroupIdsMap.get(photoEntry.getPhotoId()).add(photoEntry.getGroupId());
-			}
-		}
-
-		List<PhotoElements.JsonPhoto> result = new ArrayList<>();
-		for (PhotoVO photo : photos) {
-			result.add(new PhotoElements.JsonPhoto(photo, (photoToGroupIdsMap.get(photo.getId()).toArray(new Long[1]))));
-		}
-		return result;
+		return buildJsonPhotosWithPhotos(photoMapper.getListWithCityId(cityId, limit, before, after));
 	}
 
 	public List<PhotoElements.JsonPhoto> getViewableUserJsonPhotosList(UserVO user, UserVO viewer, int limit, Long before, Long after) {
 		log.debug("Getting photos by {} that are viewable by viewer {}", user, viewer);
-		List<PhotoVO> photos = photoMapper.getListUserAndViewerId(user.getId(), viewer.getId(), limit, before, after);
+		return buildJsonPhotosWithPhotos(photoMapper.getListUserAndViewerId(user.getId(), viewer.getId(), limit, before, after));
+	}
+
+	public List<PhotoElements.JsonPhoto> getLatestJsonPhotosListForUser(UserVO user, Integer limit, Long before, Long after) {
+		log.debug("Getting the latest photos for user {}", user);
+		return buildJsonPhotosWithPhotos(photoMapper.getListUserAndViewerId(user.getId(), user.getId(), limit, before, after));
+	}
+
+	private List<PhotoElements.JsonPhoto> buildJsonPhotosWithPhotos(List<PhotoVO> photos) {
 		List<PhotoEntryVO> photoEntries = photoEntryService.getPhotoEntriesWithPhotos(photos);
 
 		Map<Long, Set<Long>> photoToGroupIdsMap = new LinkedHashMap<>();

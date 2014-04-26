@@ -47,6 +47,7 @@ CREATE TABLE devices (
 	id BIGINT NOT NULL AUTO_INCREMENT ,
 	device_type VARCHAR(45) NULL ,
 	udid VARCHAR(45) NULL ,
+	user_id BIGINT NULL ,
 	PRIMARY KEY (id));
 
 DROP TABLE IF EXISTS citys;

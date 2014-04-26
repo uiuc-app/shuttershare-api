@@ -10,4 +10,5 @@ public class DeviceVO {
     private Long id;
     private String deviceType;
     private String udid;
+	private Long userId;
 }

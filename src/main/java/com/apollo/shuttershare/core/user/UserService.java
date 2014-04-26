@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Daniel
@@ -49,4 +50,14 @@ public class UserService {
         log.debug("Getting UserVOs for the group members of the group {}", group);
         return userMapper.getListWithGroupId(group.getId());
     }
+
+	public UserVO createNewUser(String name) {
+		log.debug("Create a new user with name {}", name);
+		UserVO user = new UserVO();
+		user.setApiKey(UUID.randomUUID().toString());
+		user.setName(name);
+		user.setJointAt(System.currentTimeMillis());
+		userMapper.save(user);
+		return user;
+	}
 }

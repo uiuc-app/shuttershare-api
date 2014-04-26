@@ -59,7 +59,7 @@ public interface PhotoMapper {
 		    @Result(property = "cityId", column = "city_id")
     })
     List<PhotoVO> getListWithGroupId(@Param("groupId") Long groupId,
-                                     @Param("limit") Long limit,
+                                     @Param("limit") int limit,
                                      @Param("before") Long before,
                                      @Param("after") Long after);
 
@@ -89,6 +89,7 @@ public interface PhotoMapper {
 			" JOIN photo_entrys ON photos.id = photo_entrys.photo_id" +
 			" WHERE photos.user_id = #{userId}" +
 			" AND photo_entrys.user_id = #{viewerId}" +
+			" AND photos.id > #{after} AND photos.id < #{before}" +
 			" GROUP BY photos.id" +
 			" ORDER BY photos.id desc" +
 			" LIMIT #{limit}")
