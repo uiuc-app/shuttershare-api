@@ -173,4 +173,26 @@ public class PhotoService {
 		}
 		return result;
 	}
+
+	public List<PhotoElements.JsonPhoto> getViewableUserJsonPhotosList(UserVO user, UserVO viewer, int limit, Long before, Long after) {
+		log.debug("Getting photos by {} that are viewable by viewer {}", user, viewer);
+		List<PhotoVO> photos = photoMapper.getListUserAndViewerId(user.getId(), viewer.getId(), limit, before, after);
+		List<PhotoEntryVO> photoEntries = photoEntryService.getPhotoEntriesWithPhotos(photos);
+
+		Map<Long, Set<Long>> photoToGroupIdsMap = new LinkedHashMap<>();
+		for (PhotoEntryVO photoEntry : photoEntries) {
+			if (photoToGroupIdsMap.containsKey(photoEntry.getPhotoId())) {
+				photoToGroupIdsMap.get(photoEntry.getPhotoId()).add(photoEntry.getGroupId());
+			} else {
+				photoToGroupIdsMap.put(photoEntry.getPhotoId(), new HashSet<Long>());
+				photoToGroupIdsMap.get(photoEntry.getPhotoId()).add(photoEntry.getGroupId());
+			}
+		}
+
+		List<PhotoElements.JsonPhoto> result = new ArrayList<>();
+		for (PhotoVO photo : photos) {
+			result.add(new PhotoElements.JsonPhoto(photo, (photoToGroupIdsMap.get(photo.getId()).toArray(new Long[1]))));
+		}
+		return result;
+	}
 }

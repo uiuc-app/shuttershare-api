@@ -83,4 +83,26 @@ public interface PhotoMapper {
 	                                @Param("limit") int limit,
 	                                @Param("before") Long before,
 	                                @Param("after") Long after);
+
+	@Transactional(readOnly = true)
+	@Select("SELECT photos.* FROM photos" +
+			" JOIN photo_entrys ON photos.id = photo_entrys.photo_id" +
+			" WHERE photos.user_id = #{userId}" +
+			" AND photo_entrys.user_id = #{viewerId}" +
+			" GROUP BY photos.id" +
+			" ORDER BY photos.id desc" +
+			" LIMIT #{limit}")
+	@Results(value = {
+			@Result(property = "id", column = "id"),
+			@Result(property = "userId", column = "user_id"),
+			@Result(property = "createAt", column = "create_at"),
+			@Result(property = "latitude", column = "latitude"),
+			@Result(property = "longitude", column = "longitude"),
+			@Result(property = "cityId", column = "city_id")
+	})
+	List<PhotoVO> getListUserAndViewerId(@Param("userId") Long userId,
+	                                     @Param("viewerId") Long viewerId,
+		                                 @Param("limit") int limit,
+		                                 @Param("before") Long before,
+		                                 @Param("after") Long after);
 }
