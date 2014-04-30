@@ -106,4 +106,27 @@ public interface PhotoMapper {
 		                                 @Param("limit") int limit,
 		                                 @Param("before") Long before,
 		                                 @Param("after") Long after);
+
+	@Transactional(readOnly = true)
+	@Select("SELECT photos.* FROM photos" +
+			" JOIN photo_entrys ON photos.id = photo_entrys.photo_id" +
+			" JOIN face_detection_logs ON photos.id = face_detection_logs.photo_id" +
+			" WHERE city_id = #{cityId}" +
+			" AND face_detection_logs.num_faces = 0" +
+			" AND photos.id > #{after} AND photos.id < #{before}" +
+			" GROUP BY photos.id" +
+			" ORDER BY photos.id desc" +
+			" LIMIT #{limit}")
+	@Results(value = {
+			@Result(property = "id", column = "id"),
+			@Result(property = "userId", column = "user_id"),
+			@Result(property = "createAt", column = "create_at"),
+			@Result(property = "latitude", column = "latitude"),
+			@Result(property = "longitude", column = "longitude"),
+			@Result(property = "cityId", column = "city_id")
+	})
+	List<PhotoVO> getListWithoutFacesWithCityId(@Param("cityId") Long cityId,
+	                                            @Param("limit") int limit,
+	                                            @Param("before") Long before,
+	                                            @Param("after") Long after);
 }

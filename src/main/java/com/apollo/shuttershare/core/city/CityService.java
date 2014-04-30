@@ -61,10 +61,12 @@ public class CityService {
 		List<CityVO> cities = cityMapper.getClosestCitiesWithPhotosForUser(user.getId(), latitude, longitude);
 		List<CityElements.JsonCity> jsonCities = new ArrayList<>();
 		for (CityVO city : cities) {
-			List<PhotoElements.JsonPhoto> jsonPhotos = photoService.getCityJsonPhotosList(city.getId(), 1, Long.MAX_VALUE, -1l);
+			List<PhotoElements.JsonPhoto> jsonPhotos = photoService.getCityJsonPhotosWithoutFacesList(city.getId(), 1, Long.MAX_VALUE, -1l);
+			Long cityJsonPhotoId = null;
 			if (!jsonPhotos.isEmpty()) {
-				jsonCities.add(new CityElements.JsonCity(city, jsonPhotos.get(0).id));
+				cityJsonPhotoId = jsonPhotos.get(0).id;
 			}
+			jsonCities.add(new CityElements.JsonCity(city, cityJsonPhotoId));
 		}
 
 		return new CityElements.JsonCities(jsonCities);

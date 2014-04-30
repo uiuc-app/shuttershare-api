@@ -1,5 +1,6 @@
 package com.apollo.shuttershare.common;
 
+import com.apollo.shuttershare.core.facedetect.FaceDetector;
 import com.apollo.shuttershare.core.group.GroupMemberVO;
 import com.apollo.shuttershare.core.group.GroupService;
 import com.apollo.shuttershare.core.group.GroupVO;

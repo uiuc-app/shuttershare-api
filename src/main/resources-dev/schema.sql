@@ -60,3 +60,22 @@ CREATE TABLE citys (
 	state_abbreviation VARCHAR(2) NULL ,
 	state VARCHAR(45) NULL ,
 	PRIMARY KEY (id));
+
+DROP TABLE IF EXISTS faces;
+CREATE TABLE faces (
+	id BIGINT NOT NULL AUTO_INCREMENT ,
+	photo_id BIGINT NULL ,
+	face_index INT NULL ,
+	x INT NULL ,
+	y INT NULL ,
+	width INT NULL ,
+	height INT NULL ,
+	PRIMARY KEY (id));
+
+DROP TABLE IF EXISTS face_detection_logs;
+CREATE TABLE face_detection_logs (
+	id BIGINT NOT NULL AUTO_INCREMENT ,
+	photo_id BIGINT NULL ,
+	create_at BIGINT NULL ,
+	num_faces INT NULL ,
+	PRIMARY KEY (id));

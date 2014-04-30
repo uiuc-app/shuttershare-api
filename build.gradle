@@ -11,7 +11,7 @@ ext {
 	javaVersion = '1.7'
 	version = version
 	buildDir = 'build'
-	projectName = 'shuttershare-web'
+	projectName = 'shuttershare-api'
 }
 
 repositories {
@@ -64,6 +64,12 @@ dependencies {
 
     // commons-upload (for file upload)
     runtime 'commons-fileupload:commons-fileupload:1.3'
+
+    // JavaCV
+    compile files('libs/javacpp.jar', 'libs/javacv.jar')
+
+    // Quartz Daemon
+    compile 'org.quartz-scheduler:quartz:1.8.5'
 }
 
 [configurations.runtime, configurations.default]*.exclude(module: 'commons-logging')
@@ -99,11 +105,26 @@ allprojects {
 		dependencies {
 			runtime 'mysql:mysql-connector-java:5.1.25'
 			runtime 'commons-dbcp:commons-dbcp:1.4'
+
 		}
 	}
+
+    if (!project.hasProperty('os') || !os) {
+        dependencies {
+            compile files('libs/javacv-macosx-x86_64.jar', 'libs/opencv-2.4.8-macosx-x86_64.jar')
+        }
+    } else if (os == 'linux') {
+        dependencies {
+            compile files('libs/javacv-linux-x86_64.jar', 'libs/opencv-2.4.8-linux-x86_64.jar')
+        }
+    } else if (os == 'macosx') {
+        dependencies {
+            compile files('libs/javacv-macosx-x86_64.jar', 'libs/opencv-2.4.8-macosx-x86_64.jar')
+        }
+    }
 }
 
-// Basedir 생성
+// Basedir
 task baseDirs << {
 	sourceSets.each { set ->
 		set.java.srcDirs.each { dir ->

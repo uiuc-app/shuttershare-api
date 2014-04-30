@@ -3,6 +3,7 @@ package com.apollo.shuttershare.core.photo;
 import com.apollo.shuttershare.common.UnauthorizedException;
 import com.apollo.shuttershare.core.city.CityService;
 import com.apollo.shuttershare.core.city.CityVO;
+import com.apollo.shuttershare.core.facedetect.FaceDetectionService;
 import com.apollo.shuttershare.core.photoentry.PhotoEntryService;
 import com.apollo.shuttershare.core.photoentry.PhotoEntryVO;
 import com.apollo.shuttershare.web.PhotoElements;
@@ -36,6 +37,9 @@ public class PhotoService {
 
 	@Autowired
 	CityService cityService;
+
+	@Autowired
+	FaceDetectionService faceDetectionService;
 
     @Value("${file.basePath}")
     private String basePath;
@@ -76,6 +80,8 @@ public class PhotoService {
         } catch (IOException e) {
             throw new ShutterShareException("Unable to read image file", e);
         }
+
+	    faceDetectionService.detectFacesAndSaveFaces(photo);
         return photo;
     }
 
@@ -138,6 +144,11 @@ public class PhotoService {
 	public List<PhotoElements.JsonPhoto> getCityJsonPhotosList(Long cityId, int limit, Long before, Long after) {
 		log.debug("Getting city {}'s photos list in JsonPhoto with limit {}, before {}, after {}", cityId, limit, before, after);
 		return buildJsonPhotosWithPhotos(photoMapper.getListWithCityId(cityId, limit, before, after));
+	}
+
+	public List<PhotoElements.JsonPhoto> getCityJsonPhotosWithoutFacesList(Long cityId, int limit, Long before, Long after) {
+		log.debug("Getting city {}'s photos list without faces in JsonPhoto with limit {}, before {}, after {}", cityId, limit, before, after);
+		return buildJsonPhotosWithPhotos(photoMapper.getListWithoutFacesWithCityId(cityId, limit, before, after));
 	}
 
 	public List<PhotoElements.JsonPhoto> getViewableUserJsonPhotosList(UserVO user, UserVO viewer, int limit, Long before, Long after) {
